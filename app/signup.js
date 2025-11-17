@@ -18,6 +18,55 @@ const SignUp = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const router = useRouter();
+    const [emailError, setEmailError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
+    const [userNameError, setUserNameError] = useState('');
+
+    const validateEmail = (email) => {
+        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
+    };
+
+    const handleEmailChange = (text) => {
+        setEmail(text);
+        if (!validateEmail(text)) {
+          setEmailError('Invalid email address');
+        } else {
+          setEmailError('');
+        }
+    };
+
+
+    const validateUserName = (userName) => {
+        const regex = /.{3,}/;
+        return regex.test(String(userName));
+    };
+
+    const handleUserNameChange = (text) => {
+        setUserName(text);
+        if (!validateUserName(text)) {
+            setUserNameError('Invalid UserName, it must have at least 3 letters');
+        } else {
+            setUserNameError('');
+        }
+    };
+
+ 
+    const validatePassword = (password) => {
+        const regex = /.{8,}/;
+        return regex.test(String(password));
+    };
+
+    const handlePasswordChange = (text) => {
+        setPassword(text);
+        if (!validatePassword(text)) {
+            setPasswordError('Invalid Password, it must have at least 8 chars');
+        } else {
+            setPasswordError('');
+        }
+    };
+
+
 
     const handleRegister = async () => {
         if (!userName || !email || !password) {
@@ -81,9 +130,10 @@ const SignUp = () => {
                             marginBottom: 10,
                         }}
                         value={userName}
-                        onChangeText={setUserName}
+                        onChangeText={handleUserNameChange}
                         placeholder="UserName"
                         />
+                        {userNameError ? <Text style={{ color: 'red' }}>{userNameError}</Text> : null}
                     </View>
 
                     <View style={{ marginBottom: 10 }} testID="email">
@@ -96,9 +146,13 @@ const SignUp = () => {
                             marginBottom: 10,
                         }}
                         value={email}
-                        onChangeText={setEmail}
+                        onChangeText={handleEmailChange}
                         placeholder="Email"
+                        keyboardType="email-address"
+                        autoCapitalize="none"
                         />
+                        {emailError ? <Text style={{ color: 'red' }}>{emailError}</Text> : null}
+
                     </View>
 
                     <View style={{ marginBottom: 20 }} testID="password">
@@ -110,10 +164,11 @@ const SignUp = () => {
                             borderRadius: 5,
                         }}
                         value={password}
-                        onChangeText={setPassword}
+                        onChangeText={handlePasswordChange}
                         secureTextEntry={true}
                         placeholder="Password"
                         />
+                        {passwordError ? <Text style={{ color: 'red' }}>{passwordError}</Text> : null}
                     </View>
 
                     <TouchableOpacity
