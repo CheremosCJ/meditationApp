@@ -22,6 +22,7 @@ const SignUp = () => {
     const handleRegister = async () => {
         if (!userName || !email || !password) {
           Alert.alert("Validation Error", "Please fill in all fields.");
+          alert("Validation Error. Please fill in all fields.");
           return;
         } else {
         const userDetails = { userName, email,password, token: "sample-token" };
@@ -154,5 +155,5 @@ const SignUp = () => {
         </SafeAreaView>
 
     );
-}
+};
 export default SignUp;
