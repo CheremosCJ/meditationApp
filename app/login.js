@@ -8,8 +8,40 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const router = useRouter();
+    const [emailError, setEmailError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
 
+
+    const validateEmail = (email) => {
+        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
+    };
+
+    const handleEmailChange = (text) => {
+        setEmail(text);
+        if (!validateEmail(text)) {
+          setEmailError('Invalid email address');
+        } else {
+          setEmailError('');
+        }
+    };
+
+ 
+    const validatePassword = (password) => {
+        const regex = /.{8,}/;
+        return regex.test(String(password));
+    };
+
+    const handlePasswordChange = (text) => {
+        setPassword(text);
+        if (!validatePassword(text)) {
+            setPasswordError('Invalid Password, it must have at least 8 chars');
+        } else {
+            setPasswordError('');
+        }
+    };
     
+
 
     const handleLogin = async () => {
         if (!email || !password) {
@@ -92,9 +124,13 @@ const Login = () => {
                             marginBottom: 10,
                         }}
                         value={email}
-                        onChangeText={setEmail}
+                        onChangeText={handleEmailChange}
                         placeholder="Email"
+                        keyboardType="email-address"
+                        autoCapitalize="none"
                         />
+                        {emailError ? <Text style={{ color: 'red' }}>{emailError}</Text> : null}
+
                         <TextInput
                         style={{
                             borderWidth: 1,
@@ -105,9 +141,10 @@ const Login = () => {
                         }}
                         value={password}
                         secureTextEntry={true}
-                        onChangeText={setPassword}
+                        onChangeText={handlePasswordChange}
                         placeholder="Password"
                         />
+                        {passwordError ? <Text style={{ color: 'red' }}>{passwordError}</Text> : null}
                     </View>
                     <TouchableOpacity
                     style={{
