@@ -59,7 +59,8 @@ const Login = () => {
             if (detailsDatafromSignup) {
             const parsedDetails = JSON.parse(detailsDatafromSignup);
             if (userDetails.email === parsedDetails.email && userDetails.password === parsedDetails.password) {
-            router.push("/home");
+                
+                router.push("/home");
             } else {
             Alert.alert("Error", "Incorrect email or password.");
             alert("Error Incorrect email or password.");

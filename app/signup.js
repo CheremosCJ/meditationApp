@@ -74,7 +74,7 @@ const SignUp = () => {
           alert("Validation Error. Please fill in all fields.");
           return;
         } else {
-        const userDetails = { userName, email,password, token: "sample-token" };
+        const userDetails = { userName, email, password, token: "sample-token" };
         await AsyncStorage.setItem("userDetails", JSON.stringify(userDetails));
         console.log("User logged in:", userDetails);
         router.push("/login");
