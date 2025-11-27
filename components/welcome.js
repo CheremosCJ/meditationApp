@@ -5,7 +5,7 @@ import { COLORS, FONT, SIZES } from "../constants/theme";
 
 const Welcome = ({ userDetails }) => {
 
-    // const userDetails1 = userDetails;
+
 
     console.log("userDetails", userDetails?.userName);
     return (

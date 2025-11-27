@@ -6,23 +6,23 @@ import ScreenHeaderBtn from "../components/ScreenHeaderBtn.js";
 import Welcome from "../components/welcome.js";
 import PopularMeditation from "../components/PopularMeditation.js";
 import DailyMeditation from "../components/DailyMeditation";
+import DailyQuote from "../components/DailyQuote";
 
-
-const loadUserDetails = async () => {
-    const user = await AsyncStorage.getItem('userDetails');
-    console.log("user leido aqui", user);
-    setUserDetails(user);
-};
-
-const [userDetails, setUserDetails] = useState(null);
-  useEffect(() => {
-    loadUserDetails();
-  }, []);
-
-const jsonString1 = '{"userName" :"vacio 1"}';
-const jsonString2 = '{"userName" :"vacio 2"}';
 
 const Home = () => {
+    
+    const loadUserDetails = async () => {
+        const user = await AsyncStorage.getItem('userDetails');
+        console.log("user leido aqui", user);
+        setUserDetails(user);
+    };
+
+    const [userDetails, setUserDetails] = useState(null);
+    useEffect(() => {
+        loadUserDetails();
+    }, []);
+
+    
     return (
         <>
             
@@ -35,8 +35,9 @@ const Home = () => {
                     
                     <View style={{ flex: 1, padding: SIZES.medium,}} testID="screensDisplay">
                         <Welcome userDetails={userDetails ? JSON.parse(userDetails) : null} />
-                        <PopularMeditation/>
-                        <DailyMeditation/>
+                        <DailyQuote/>
+                        <PopularMeditation />
+                        <DailyMeditation />
                     </View>
 
                 </ScrollView>

@@ -31,3 +31,4 @@ export default function Index() {
     
   return <Redirect href={isLoggedIn ? "/home" : "/login"} />;
 }
+
